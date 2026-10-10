@@ -55,7 +55,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         HashSet<String> visited = new HashSet<>();
         visited.add(employeeId);
 
-        Employee employee = employeeRepository.findByEmployeeId(employeeId);
+        Employee employee = read(employeeId);
         int numberOfReports = recursiveNumReports(employee, visited);
         return new ReportingStructure(employee, numberOfReports);
     }
@@ -74,12 +74,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         int totalReports = 0;
         for(int i = 0; i < directReports.size(); i++){
-            
-            if(visited.contains(directReports.get(i).getEmployeeId())){
+            Employee directReport = directReports.get(i);
+            if (directReport == null || directReport.getEmployeeId() == null
+                    || directReport.getEmployeeId().isBlank()) {
+                throw new IllegalStateException("Direct report is missing an employeeId");
+            }
+
+            if(visited.contains(directReport.getEmployeeId())){
                 continue;
             }
-            visited.add(directReports.get(i).getEmployeeId());
-            totalReports += 1 + recursiveNumReports(directReports.get(i), visited);
+            visited.add(directReport.getEmployeeId());
+            totalReports += 1 + recursiveNumReports(directReport, visited);
         }
         return totalReports;
     }
