@@ -65,7 +65,9 @@ public class EmployeeServiceImpl implements EmployeeService {
             return 0;
         }
 
-        List<Employee> directReports = employee.getDirectReports();
+        Employee originalEmployee = read(employee.getEmployeeId());
+
+        List<Employee> directReports = originalEmployee.getDirectReports();
         if (directReports == null || directReports.isEmpty()) {
             return 0;
         }
