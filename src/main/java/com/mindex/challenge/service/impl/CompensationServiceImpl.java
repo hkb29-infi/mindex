@@ -1,6 +1,7 @@
 package com.mindex.challenge.service.impl;
 
 import com.mindex.challenge.dao.CompensationRepository;
+import com.mindex.challenge.dao.EmployeeRepository;
 import com.mindex.challenge.data.Compensation;
 import com.mindex.challenge.service.CompensationService;
 import org.slf4j.Logger;
@@ -16,9 +17,16 @@ public class CompensationServiceImpl implements CompensationService {
     @Autowired
     private CompensationRepository compensationRepository;
 
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
     @Override
     public Compensation create(Compensation compensation) {
         LOG.debug("Creating compensation [{}]", compensation);
+
+        if (employeeRepository.findByEmployeeId(compensation.getEmployeeId()) == null) {
+            throw new IllegalArgumentException("Invalid employeeId: " + compensation.getEmployeeId());
+        }
 
         compensationRepository.insert(compensation);
         return compensation;
