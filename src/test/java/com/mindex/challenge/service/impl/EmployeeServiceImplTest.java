@@ -1,6 +1,7 @@
 package com.mindex.challenge.service.impl;
 
 import com.mindex.challenge.data.Employee;
+import com.mindex.challenge.data.ReportingStructure;
 import com.mindex.challenge.service.EmployeeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -82,5 +83,44 @@ public class EmployeeServiceImplTest {
         assertEquals(expected.getLastName(), actual.getLastName());
         assertEquals(expected.getDepartment(), actual.getDepartment());
         assertEquals(expected.getPosition(), actual.getPosition());
+    }
+
+    @Test
+    public void testReportingStructure(){
+        Employee testEmployee = new Employee();
+        testEmployee.setFirstName("John");
+        testEmployee.setLastName("Doe");
+        testEmployee.setDepartment("Engineering");
+        testEmployee.setPosition("Developer");
+
+        int numberOfReports = 4;
+
+        ReportingStructure reportingStructure = new ReportingStructure(testEmployee, 4);
+
+        assertEmployeeEquivalence(testEmployee, reportingStructure.getEmployee());
+
+        assertEquals(numberOfReports, reportingStructure.getNumberOfReports());
+    }
+
+    @Test
+    public void testSetReportingStructure(){
+        Employee testEmployee = new Employee();
+        testEmployee.setFirstName("John");
+        testEmployee.setLastName("Doe");
+        testEmployee.setDepartment("Engineering");
+        testEmployee.setPosition("Developer");
+
+        int numberOfReports = 4;
+
+        ReportingStructure reportingStructure = new ReportingStructure(new Employee(), 4);
+
+        reportingStructure.setEmployee(testEmployee);
+
+        assertEmployeeEquivalence(testEmployee, reportingStructure.getEmployee());
+
+        reportingStructure.setNumberOfReports(100000);
+
+        assertEquals(100000, reportingStructure.getNumberOfReports());
+
     }
 }
