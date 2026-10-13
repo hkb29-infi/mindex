@@ -13,8 +13,11 @@ public class ReportingStructure{
     }
 
     public int getNumberOfReports(){
-        // return recursiveNumReports(employee);
         return numberOfReports;
+    }
+
+    public void setNumberOfReports(int numberOfReports){
+        this.numberOfReports = numberOfReports;
     }
 
     public Employee getEmployee(){
@@ -25,24 +28,5 @@ public class ReportingStructure{
         this.employee = employee;
     }
 
-    // later we will add this logic to the service part of the API
-    // public int recursiveNumReports(Employee employee){
-    //     if (employee == null) {
-    //         return 0;
-    //     }
-
-    //     List<Employee> directReports = employee.getDirectReports();
-    //     if (directReports == null || directReports.isEmpty()) {
-    //         return 0;
-    //     }
-
-    //     int totalReports = 0;
-    //     for(int i = 0; i < directReports.size(); i++){
-    //         totalReports += 1 + recursiveNumReports(directReports.get(i));
-    //     }
-    //     return totalReports;
-    // }
-
-    
 
 }
