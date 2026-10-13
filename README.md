@@ -119,3 +119,5 @@ persist and fetch `Compensation` data for a specific `Employee` using the persis
 
 ## Delivery
 Please upload your results to a publicly accessible Git repo. Free ones are provided by GitHub and Bitbucket.
+
+Github repo link: https://github.com/hkb29-infi/mindex 
