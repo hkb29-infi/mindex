@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -52,39 +53,37 @@ public class EmployeeServiceImpl implements EmployeeService {
     
     @Override
     public ReportingStructure getNumReports(String employeeId){
-        HashSet<String> visited = new HashSet<>();
+        Set<String> visited = new HashSet<>();
         visited.add(employeeId);
 
         Employee employee = read(employeeId);
-        int numberOfReports = recursiveNumReports(employee, visited);
+        int numberOfReports = countReports(employee, visited);
         return new ReportingStructure(employee, numberOfReports);
     }
 
-    public int recursiveNumReports(Employee employee, HashSet<String> visited){
-        if (employee == null) {
-            return 0;
-        }
+    private int countReports(Employee employee, Set<String> visited){
 
-        Employee originalEmployee = read(employee.getEmployeeId());
-
-        List<Employee> directReports = originalEmployee.getDirectReports();
+        Employee employeeFull = read(employee.getEmployeeId());
+        
+        List<Employee> directReports = employeeFull.getDirectReports();
         if (directReports == null || directReports.isEmpty()) {
             return 0;
         }
 
         int totalReports = 0;
-        for(int i = 0; i < directReports.size(); i++){
-            Employee directReport = directReports.get(i);
-            if (directReport == null || directReport.getEmployeeId() == null
-                    || directReport.getEmployeeId().isBlank()) {
+        for (Employee reportReference : directReports) {
+            if (reportReference == null || reportReference.getEmployeeId() == null
+                    || reportReference.getEmployeeId().isBlank()) {
                 throw new IllegalStateException("Direct report is missing an employeeId");
             }
 
-            if(visited.contains(directReport.getEmployeeId())){
+            String reportId = reportReference.getEmployeeId();
+            if (!visited.add(reportId)) {
                 continue;
             }
-            visited.add(directReport.getEmployeeId());
-            totalReports += 1 + recursiveNumReports(directReport, visited);
+
+            Employee fullReport = read(reportId);
+            totalReports += 1 + countReports(fullReport, visited);
         }
         return totalReports;
     }
