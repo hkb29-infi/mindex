@@ -103,6 +103,16 @@ public class EmployeeServiceImplTest {
     }
 
     @Test
+    public void testGetNumReportsForJohn() {
+        String johnsEmployeeId = "16a596ae-edd3-4847-99fe-c4518e82c86f";
+
+        ReportingStructure reportingStructure = employeeService.getNumReports(johnsEmployeeId);
+
+        assertEquals(johnsEmployeeId, reportingStructure.getEmployee().getEmployeeId());
+        assertEquals(4, reportingStructure.getNumberOfReports());
+    }
+
+    @Test
     public void testSetReportingStructure(){
         Employee testEmployee = new Employee();
         testEmployee.setFirstName("John");
@@ -114,7 +124,7 @@ public class EmployeeServiceImplTest {
 
         ReportingStructure reportingStructure = new ReportingStructure(new Employee(), 4);
 
-        assertEquals(100000, reportingStructure.getNumberOfReports());
+        assertEquals(4, reportingStructure.getNumberOfReports());
 
         reportingStructure.setEmployee(testEmployee);
 
