@@ -6,7 +6,9 @@
 
 And this was a logic error which was yeilding the wrong calculations. With the bug in this function John's getNumReports returned 2 because we passed John with its direct reports to get 2, but then when we pass those children into the recusrive function because they were dummy references, they had [] directRrports giving 0 instead of 2. After fixing that with AI, we got the correct numnber 4.
 
-**For unit testing,** I added 3 tests, I wrote the 2 of those 3 unit tests myself and then made AI write one and make sure the ones I wrote were correct.
+**For unit testing of the reportingStructure,** I added some unit tests to test the reportingStructure and then I made AI generate couple others and also asked to make sure the ones I wrote were correct.
+
+**For unit testing of the Compensation** I made AI implement those and then check the implementation myself
 
 **At the end** I manually interacted with the backend myself by writing curl commands. But then I also made AI check if all my code implementation was accurate and that there were no edge cases or logical errors being overseen.
 
