@@ -35,11 +35,11 @@ The following endpoints are available to use:
 * CREATE
     * HTTP Method: POST 
     * URL: localhost:8080/compensation
-    * RESPONSE: Employee
+    * RESPONSE: Compensation
 * READ
     * HTTP Method: GET 
     * URL: localhost:8080/compensation/{id}
-    * RESPONSE: Employee
+    * RESPONSE: Compensation
 
 
 ```
