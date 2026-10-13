@@ -114,6 +114,8 @@ public class EmployeeServiceImplTest {
 
         ReportingStructure reportingStructure = new ReportingStructure(new Employee(), 4);
 
+        assertEquals(100000, reportingStructure.getNumberOfReports());
+
         reportingStructure.setEmployee(testEmployee);
 
         assertEmployeeEquivalence(testEmployee, reportingStructure.getEmployee());
