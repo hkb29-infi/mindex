@@ -1,15 +1,19 @@
 package com.mindex.challenge.data;
 
-import java.util.List;
 import java.time.LocalDate;
 
 public class Compensation {
     private int salary;
     private LocalDate effectiveDate;
+    private String employeeId;
 
-    public Compensation(int salary, LocalDate effectiveDate) {
+    public Compensation(){
+    }
+
+    public Compensation(int salary, LocalDate effectiveDate, String employeeId) {
         this.salary = salary;
         this.effectiveDate = effectiveDate;
+        this.employeeId = employeeId;
     }
 
     public int getSalary(){
@@ -28,7 +32,15 @@ public class Compensation {
         this.effectiveDate = newEffectiveDate;
     }
 
-    public boolean isEffectiveDate() {
+    public String getEmployeeId() {
+        return this.employeeId;
+    }
+
+    public void setEmployeeId(String employeeId){
+        this.employeeId = employeeId;
+    }
+
+    public boolean isCurrentlyEffective() {
         return !effectiveDate.isAfter(LocalDate.now());
     }
 }
