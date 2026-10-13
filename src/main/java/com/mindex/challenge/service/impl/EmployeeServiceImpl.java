@@ -62,10 +62,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     private int countReports(Employee employee, Set<String> visited){
-
-        Employee employeeFull = read(employee.getEmployeeId());
-        
-        List<Employee> directReports = employeeFull.getDirectReports();
+        List<Employee> directReports = employee.getDirectReports();
         if (directReports == null || directReports.isEmpty()) {
             return 0;
         }
